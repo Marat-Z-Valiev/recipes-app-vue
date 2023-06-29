@@ -3,7 +3,7 @@ import "./assets/main.css";
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 
-import App from "./App.vue";
+import RecipesListViewVue from "./views/RecipesListView.vue";
 import router from "./router";
 
 // Vuetify
@@ -17,9 +17,10 @@ const vuetify = createVuetify({
   directives,
 });
 
-const app = createApp(App);
+const app = createApp(RecipesListViewVue);
 
 app.use(createPinia());
+
 app.use(router);
 
 app.use(vuetify);

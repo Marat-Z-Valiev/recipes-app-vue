@@ -2,14 +2,6 @@
 defineProps<{
   msg: string;
 }>();
-
-import { ref } from "vue";
-
-const count = ref(0);
-
-const increment = () => {
-  count.value++;
-};
 </script>
 
 <template>
@@ -22,7 +14,6 @@ const increment = () => {
       What's next?
     </h3>
   </div>
-  <button @click="increment">{{ count }}</button>
 </template>
 
 <style scoped>
