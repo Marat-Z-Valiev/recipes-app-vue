@@ -82,7 +82,7 @@ app.get("/recipes/:id", (req, res) => {
     });
 });
 
-app.patch("/recipes/:id", (req, res) => {
+app.put("/recipes/:id", (req, res) => {
   const recipeId = req.params.id;
   const { title, description, ingredients, instructions } = req.body;
 

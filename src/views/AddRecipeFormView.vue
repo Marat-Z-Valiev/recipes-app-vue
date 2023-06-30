@@ -1,8 +1,10 @@
 <template>
   <div class="form">
-    <router-link :to="'recipes'">
-      <v-btn> Back to recipes list </v-btn>
-    </router-link>
+    <div class="back-to-list-button">
+      <router-link :to="'recipes'">
+        <v-btn> Back to recipes list </v-btn>
+      </router-link>
+    </div>
     <v-form v-model="valid">
       <v-container>
         <v-text-field
@@ -17,17 +19,18 @@
           label="Description"
           required
         />
-        <v-btn
-          :disabled="title === '' || description === ''"
-          @click="createRecipe"
-          :loading="isLoading"
-        >
-          Create recipe
-
-          <template v-slot:loader>
-            <v-progress-circular color="blue-lighten-3" indeterminate />
-          </template>
-        </v-btn>
+        <div class="button-container">
+          <v-btn
+            :disabled="title === '' || description === ''"
+            @click="createRecipe"
+            :loading="isLoading"
+          >
+            Create recipe
+            <template v-slot:loader>
+              <v-progress-circular color="blue-lighten-3" indeterminate />
+            </template>
+          </v-btn>
+        </div>
       </v-container>
     </v-form>
   </div>
@@ -79,12 +82,15 @@ export default {
 
 <style scoped>
 .form {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+  width: 80%;
 }
 
-button {
-  margin-bottom: 20px;
+.back-to-list-button {
+  display: flex;
+  justify-content: center;
+}
+.button-container {
+  display: flex;
+  justify-content: center;
 }
 </style>

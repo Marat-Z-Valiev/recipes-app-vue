@@ -2,7 +2,7 @@
   <main>
     <v-container v-show="$route.name !== 'addRecipe' && $route.name !== 'edit'">
       <v-app>
-        <div class="header">
+        <div v-if="!isLoading" class="header">
           <h1>List of recipes</h1>
           <router-link :to="'/addRecipe'">
             <v-btn> Add new recipe </v-btn>
@@ -66,19 +66,33 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       listOfRecipes: [] as Recipe[],
     };
   },
   mounted() {
-    this.listOfRecipes = [...this.initialRecipes];
-    this.fetchRecipes();
+    // watch the params of the route to fetch the data again
+    this.$watch(
+      () => this.$route.params,
+      () => {
+        if (this.$route.path === "/recipes") {
+          this.fetchRecipes();
+          this.listOfRecipes = [...this.initialRecipes];
+        }
+      },
+      // fetch the data when the view is created and the data is
+      // already being observed
+      { immediate: true }
+    );
   },
   methods: {
     fetchRecipes() {
+      this.isLoading = true;
       axios
         .get("http://localhost:3000/recipes")
         .then(({ data }) => {
           this.listOfRecipes = data;
+          this.isLoading = false;
         })
         .catch((error) => {
           console.error("Error fetching recipes:", error);
