@@ -1,6 +1,12 @@
 <template>
   <main>
-    <v-container v-show="$route.name !== 'addRecipe' && $route.name !== 'edit'">
+    <v-container
+      v-show="
+        $route.name !== 'addRecipe' &&
+        $route.name !== 'edit' &&
+        $route.name !== 'view'
+      "
+    >
       <v-app>
         <div v-if="!isLoading" class="header">
           <h1>List of recipes</h1>
@@ -15,14 +21,16 @@
             sm="4"
           >
             <v-card class="mx-auto" max-width="400" :key="_id">
-              <v-img
-                class="align-end text-white"
-                height="200"
-                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-                cover
-              >
-                <v-card-title>{{ title }}</v-card-title>
-              </v-img>
+              <router-link :to="`/view/${_id}`">
+                <v-img
+                  class="align-end text-white"
+                  height="200"
+                  src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                  cover
+                >
+                  <v-card-title>{{ title }}</v-card-title>
+                </v-img>
+              </router-link>
 
               <v-card-text>
                 <div>{{ description }}</div>

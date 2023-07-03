@@ -10,7 +10,7 @@
         <v-text-field
           v-model="title"
           :rules="titleRule"
-          label="Title"
+          label="Recipe Title"
           required
         />
         <v-textarea
@@ -19,6 +19,10 @@
           label="Description"
           required
         />
+        <div v-for="index in ingredientFields" :key="index">
+          <v-text-field v-model="ingredients[index - 1]" label="Ingredient" />
+        </div>
+        <v-textarea v-model="instructions" label="Instructions" />
         <div class="button-container">
           <v-btn
             :disabled="title === '' || description === ''"
@@ -30,6 +34,8 @@
               <v-progress-circular color="blue-lighten-3" indeterminate />
             </template>
           </v-btn>
+          <v-btn @click="addIngredientField"> Add ingredient </v-btn>
+          <v-btn @click="removeIngredientField"> Remove ingredient </v-btn>
         </div>
       </v-container>
     </v-form>
@@ -55,6 +61,10 @@ export default {
         return "Description is required.";
       },
     ],
+    ingredients: [] as string[],
+    ingredient: "",
+    ingredientFields: 0,
+    instructions: "",
     isLoading: false,
   }),
   methods: {
@@ -64,6 +74,8 @@ export default {
         .post("http://localhost:3000/recipes", {
           title: this.title,
           description: this.description,
+          ingredients: this.ingredients,
+          instructions: this.instructions,
         })
         .then(() => {
           setTimeout(() => {
@@ -75,6 +87,14 @@ export default {
             this.isLoading = false;
           }, 2000);
         });
+    },
+    addIngredientField() {
+      this.ingredientFields++;
+      this.ingredients.push(this.ingredient);
+    },
+    removeIngredientField() {
+      this.ingredientFields--;
+      this.ingredients.pop();
     },
   },
 };
@@ -92,5 +112,6 @@ export default {
 .button-container {
   display: flex;
   justify-content: center;
+  gap: 1rem;
 }
 </style>

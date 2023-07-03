@@ -22,18 +22,20 @@
           :defaultValue="recipe.description"
           required
         />
-        <div class="button-container">
-          <v-btn
-            :disabled="title === '' || description === ''"
-            @click="updateRecipe"
-            :loading="isLoading"
-          >
-            Save
-            <template v-slot:loader>
-              <v-progress-circular color="blue-lighten-3" indeterminate />
-            </template>
-          </v-btn>
-        </div>
+        <v-btn
+          :disabled="
+            title === '' ||
+            description === '' ||
+            (title === recipe.title && description === recipe.description)
+          "
+          @click="updateRecipe"
+          :loading="isLoading"
+        >
+          Save
+          <template v-slot:loader>
+            <v-progress-circular color="blue-lighten-3" indeterminate />
+          </template>
+        </v-btn>
       </v-container>
     </v-form>
   </div>
@@ -103,15 +105,13 @@ export default {
 
 <style scoped>
 .form {
+  display: flex;
+  flex-direction: column;
   width: 80%;
-}
 
-.back-to-list-button {
-  display: flex;
-  justify-content: center;
-}
-.button-container {
-  display: flex;
-  justify-content: center;
+  .back-to-list-button {
+    display: flex;
+    justify-content: center;
+  }
 }
 </style>
