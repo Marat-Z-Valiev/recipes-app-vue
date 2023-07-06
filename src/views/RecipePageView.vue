@@ -14,7 +14,7 @@
     />
     <h1>{{ recipe.title }}</h1>
     <p>{{ recipe.description }}</p>
-    <h2 v-if="recipe.ingredients.length">Ingredients</h2>
+    <h2 v-if="recipe.ingredients && recipe.ingredients.length">Ingredients</h2>
     <div class="ingredients">
       <ul v-for="(ingredient, index) in recipe.ingredients">
         <li :key="recipe.ingredients[index]">{{ ingredient }}</li>

@@ -9,7 +9,9 @@ app.use(express.json());
 
 mongoose
   .connect(
-    "mongodb+srv://Cluster45491:fUJeZVB7RGFU@cluster45491.q3xtkkf.mongodb.net/?retryWrites=true&w=majority",
+    `mongodb+srv://${import.meta.env.VITE_MONGODB_USERNAME}:${
+      import.meta.env.VITE_MONGODB_PASSWORD
+    }@${import.meta.env.VITE_MONGODB_CLUSTER_URL}/?retryWrites=true&w=majority`,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
