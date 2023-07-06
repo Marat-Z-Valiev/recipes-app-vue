@@ -8,16 +8,19 @@
     <router-link :to="'/recipes'">
       <v-btn> Back to recipes list </v-btn>
     </router-link>
-    <v-img src="https://cdn.vuetifyjs.com/images/cards/docks.jpg" cover />
+    <v-img
+      src="https://i.ibb.co/9gqVFb2/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg"
+      cover
+    />
     <h1>{{ recipe.title }}</h1>
     <p>{{ recipe.description }}</p>
-    <h2>Ingredients</h2>
+    <h2 v-if="recipe.ingredients.length">Ingredients</h2>
     <div class="ingredients">
       <ul v-for="(ingredient, index) in recipe.ingredients">
         <li :key="recipe.ingredients[index]">{{ ingredient }}</li>
       </ul>
     </div>
-    <h2>Instructions</h2>
+    <h2 v-if="recipe.instructions">Instructions</h2>
     <p>{{ recipe.instructions }}</p>
   </div>
 </template>

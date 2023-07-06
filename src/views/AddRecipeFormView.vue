@@ -4,6 +4,16 @@
       <router-link :to="'recipes'">
         <v-btn> Back to recipes list </v-btn>
       </router-link>
+      <v-btn
+        :disabled="title === '' || description === ''"
+        @click="createRecipe"
+        :loading="isLoading"
+      >
+        Create recipe
+        <template v-slot:loader>
+          <v-progress-circular color="blue-lighten-3" indeterminate />
+        </template>
+      </v-btn>
     </div>
     <v-form v-model="valid">
       <v-container>
@@ -24,16 +34,6 @@
         </div>
         <v-textarea v-model="instructions" label="Instructions" />
         <div class="button-container">
-          <v-btn
-            :disabled="title === '' || description === ''"
-            @click="createRecipe"
-            :loading="isLoading"
-          >
-            Create recipe
-            <template v-slot:loader>
-              <v-progress-circular color="blue-lighten-3" indeterminate />
-            </template>
-          </v-btn>
           <v-btn @click="addIngredientField"> Add ingredient </v-btn>
           <v-btn @click="removeIngredientField"> Remove ingredient </v-btn>
         </div>
@@ -108,6 +108,7 @@ export default {
 .back-to-list-button {
   display: flex;
   justify-content: center;
+  gap: 1rem;
 }
 .button-container {
   display: flex;

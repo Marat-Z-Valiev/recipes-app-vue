@@ -25,7 +25,9 @@
                 <v-img
                   class="align-end text-white"
                   height="200"
-                  src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                  :src="
+                    imagesUrls[Math.floor(Math.random() * imagesUrls.length)]
+                  "
                   cover
                 >
                   <v-card-title>{{ title }}</v-card-title>
@@ -72,14 +74,21 @@ export default {
       default: () => [],
     },
   },
+
   data() {
     return {
       isLoading: false,
       listOfRecipes: [] as Recipe[],
+      imagesUrls: [
+        "https://i.ibb.co/rbrXPB7/plant-based-recipes.jpg",
+        "https://i.ibb.co/R91JKkp/im-121422.jpg",
+        "https://i.ibb.co/K51vvzv/jcliv9dg-shahi-paneer-625x300-15-March-22.jpg",
+        "https://i.ibb.co/vDJVKpy/vegetarian-recipes-1672e2b4f9104ed3b3867a2a14889ce9.jpg",
+      ],
     };
   },
+
   mounted() {
-    // watch the params of the route to fetch the data again
     this.$watch(
       () => this.$route.params,
       () => {
@@ -88,8 +97,6 @@ export default {
           this.listOfRecipes = [...this.initialRecipes];
         }
       },
-      // fetch the data when the view is created and the data is
-      // already being observed
       { immediate: true }
     );
   },
