@@ -13,10 +13,8 @@ const clientPromise = mongoClient.connect();
 
 const handler = async (event) => {
   try {
-    const database = (await clientPromise).db(
-      process.env.VITE_MONGODB_DATABASE
-    );
-    const collection = database.collection(process.env.VITE_MONGODB_COLLECTION);
+    const database = (await clientPromise).db("test");
+    const collection = database.collection("recipes");
     const results = await collection.find({}).toArray();
     return {
       statusCode: 200,
