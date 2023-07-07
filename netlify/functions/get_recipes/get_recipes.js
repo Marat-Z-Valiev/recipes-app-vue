@@ -1,10 +1,13 @@
 const { MongoClient } = require("mongodb");
-
 const dotenv = require("dotenv");
 
 dotenv.config();
 
-const mongoClient = new MongoClient(process.env.VITE_MONGODB_URI);
+console.log("MongoDB connection URI:", process.env.VITE_MONGODB_URI);
+
+const mongoClient = new MongoClient(
+  "mongodb+srv://Cluster45491:fUJeZVB7RGFU@cluster45491.q3xtkkf.mongodb.net/?retryWrites=true&w=majority"
+);
 
 const clientPromise = mongoClient.connect();
 
