@@ -109,7 +109,7 @@ export default {
         )
         .then(({ data }) => {
           console.log("data ", data);
-          // this.listOfRecipes = response.json;
+          this.listOfRecipes = data;
           this.isLoading = false;
         })
         .catch((error) => {
