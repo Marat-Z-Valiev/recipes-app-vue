@@ -92,7 +92,7 @@ export default {
     this.$watch(
       () => this.$route.params,
       () => {
-        if (this.$route.path === "/recipes") {
+        if (this.$route.path === "/recipes" || this.$route.path === "/") {
           this.fetchRecipes();
           this.listOfRecipes = [...this.initialRecipes];
         }
@@ -108,7 +108,6 @@ export default {
           "https://recipes-vue-app-mv.netlify.app/.netlify/functions/get_recipes"
         )
         .then(({ data }) => {
-          console.log("data ", data);
           this.listOfRecipes = data;
           this.isLoading = false;
         })
