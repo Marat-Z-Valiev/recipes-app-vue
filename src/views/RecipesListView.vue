@@ -104,7 +104,7 @@ export default {
     async fetchRecipes() {
       this.isLoading = true;
       await axios
-        .get("../../netlify/functions/get_recipes")
+        .get("../../.netlify/functions/get_recipes")
         .then(({ data }) => {
           console.log("data ", data);
           this.listOfRecipes = data;
