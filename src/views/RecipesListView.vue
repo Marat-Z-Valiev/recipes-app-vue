@@ -107,9 +107,9 @@ export default {
         .get(
           "https://recipes-vue-app-mv.netlify.app/.netlify/functions/get_recipes"
         )
-        .then(({ data }) => {
-          console.log("data ", data);
-          this.listOfRecipes = data;
+        .then((response) => {
+          console.log("response ", response);
+          // this.listOfRecipes = data;
           this.isLoading = false;
         })
         .catch((error) => {
