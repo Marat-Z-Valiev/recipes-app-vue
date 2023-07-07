@@ -11,20 +11,6 @@
     <title>Vite App</title>
   </head>
   <body>
-    <h1>MongoDB with Netlify Functions</h1>
-    <ul id="movies"></ul>
-    <script>
-      (async () => {
-        let results = await fetch(
-          "https://recipes-vue-app-mv.netlify.app/.netlify/functions/get_recipes"
-        ).then((response) => response.json());
-        results.forEach((result) => {
-          const listItem = document.createElement("li");
-          listItem.innerText = result.title;
-          document.getElementById("movies").appendChild(listItem);
-        });
-      })();
-    </script>
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>
