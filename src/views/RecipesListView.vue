@@ -101,11 +101,12 @@ export default {
     );
   },
   methods: {
-    fetchRecipes() {
+    async fetchRecipes() {
       this.isLoading = true;
-      axios
-        .get("http://localhost:3000/recipes")
+      await axios
+        .get("../../netlify/functions/get_recipes")
         .then(({ data }) => {
+          console.log("data ", data);
           this.listOfRecipes = data;
           this.isLoading = false;
         })
@@ -115,7 +116,7 @@ export default {
     },
     deleteRecipe(id: string) {
       axios
-        .delete(`http://localhost:3000/recipes/${id}`)
+        .delete(`/recipes/${id}`)
         .then(() => {
           this.fetchRecipes();
         })
