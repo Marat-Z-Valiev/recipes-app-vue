@@ -104,7 +104,9 @@ export default {
     async fetchRecipes() {
       this.isLoading = true;
       await axios
-        .get("../../.netlify/functions/get_recipes")
+        .get(
+          "https://recipes-vue-app-mv.netlify.app/.netlify/functions/get_recipes"
+        )
         .then(({ data }) => {
           console.log("data ", data);
           this.listOfRecipes = data;
