@@ -103,18 +103,22 @@ export default {
   methods: {
     async fetchRecipes() {
       this.isLoading = true;
-      await axios
-        .get(
-          "https://recipes-vue-app-mv.netlify.app/.netlify/functions/get_recipes"
-        )
-        .then((response) => {
-          console.log("response ", response);
-          // this.listOfRecipes = data;
-          this.isLoading = false;
-        })
-        .catch((error) => {
-          console.error("Error fetching recipes:", error);
-        });
+      // let results = await axios
+      //   .get("../../.netlify/functions/get_recipes")
+      //   .then((response) => {
+      //     console.log("response ", response);
+      //     // this.listOfRecipes = response.json;
+      //     this.isLoading = false;
+      //   })
+      //   .catch((error) => {
+      //     console.error("Error fetching recipes:", error);
+      //   });
+
+      let results = await fetch(
+        "https://recipes-vue-app-mv.netlify.app/.netlify/functions/get_recipes"
+      ).then((response) => response.json());
+      this.listOfRecipes = results;
+      console.log("results ", results);
     },
     deleteRecipe(id: string) {
       axios
