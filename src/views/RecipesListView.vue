@@ -92,7 +92,7 @@ export default {
     this.$watch(
       () => this.$route.params,
       () => {
-        if (this.$route.path === "/recipes" || this.$route.path === "/") {
+        if (this.$route.path === "/recipes") {
           this.fetchRecipes();
           this.listOfRecipes = [...this.initialRecipes];
         }

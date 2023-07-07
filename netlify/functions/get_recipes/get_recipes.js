@@ -1,20 +1,16 @@
 const { MongoClient } = require("mongodb");
-const dotenv = require("dotenv");
+const dotenv = require("dotenv").config();
 
-dotenv.config();
-
-console.log("MongoDB connection URI:", process.env.VITE_MONGODB_URI);
-
-const mongoClient = new MongoClient(
-  "mongodb+srv://Cluster45491:fUJeZVB7RGFU@cluster45491.q3xtkkf.mongodb.net/?retryWrites=true&w=majority"
-);
+const mongoClient = new MongoClient(process.env.VITE_MONGODB_URI);
 
 const clientPromise = mongoClient.connect();
 
 const handler = async (event) => {
   try {
-    const database = (await clientPromise).db("test");
-    const collection = database.collection("recipes");
+    const database = (await clientPromise).db(
+      process.env.VITE_MONGODB_DATABASE
+    );
+    const collection = database.collection(process.env.VITE_MONGODB_COLLECTION);
     const results = await collection.find({}).toArray();
     return {
       statusCode: 200,
