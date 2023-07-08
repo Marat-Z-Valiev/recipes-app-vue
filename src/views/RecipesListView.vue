@@ -92,7 +92,8 @@ export default {
     this.$watch(
       () => this.$route.params,
       () => {
-        if (this.$route.path === "/recipes") {
+        console.log("path ", this.$route.path);
+        if (this.$route.path === "/recipes" || this.$route.path === "/") {
           this.fetchRecipes();
           this.listOfRecipes = [...this.initialRecipes];
         }

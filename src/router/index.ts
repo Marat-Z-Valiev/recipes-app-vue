@@ -9,8 +9,10 @@ const router = createRouter({
   routes: [
     {
       path: "/",
+      redirect: "/recipes",
       name: "recipes",
       component: RecipesListView,
+      children: [],
     },
     {
       path: "/addRecipe",
