@@ -97,21 +97,25 @@ const handler = async (event) => {
       if (event.body) {
         const newRecipe = JSON.parse(event.body);
 
-        const result = await collection.insertOne(newRecipe);
+        try {
+          const result = await collection.insertOne(newRecipe);
 
-        if (result.insertedCount === 1) {
-          return {
-            statusCode: 200,
-            headers: {
-              /* Required for CORS support to work */
-              "Access-Control-Allow-Origin": "*",
-              /* Required for cookies, authorization headers with HTTPS */
-              "Access-Control-Allow-Credentials": true,
-            },
-            body: "Recipe created successfully",
-          };
-        } else {
-          return { statusCode: 500, body: "Failed to create recipe" };
+          if (result.insertedCount === 1) {
+            return {
+              statusCode: 200,
+              headers: {
+                /* Required for CORS support to work */
+                "Access-Control-Allow-Origin": "*",
+                /* Required for cookies, authorization headers with HTTPS */
+                "Access-Control-Allow-Credentials": true,
+              },
+              body: "Recipe created successfully",
+            };
+          } else {
+            return { statusCode: 500, body: "Failed to create recipe" };
+          }
+        } catch (error) {
+          return { statusCode: 500, body: error.toString() };
         }
       }
     }
