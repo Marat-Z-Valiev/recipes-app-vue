@@ -100,7 +100,7 @@ const handler = async (event) => {
         try {
           const result = await collection.insertOne(newRecipe);
 
-          if (result.result.ok === 1) {
+          if (result.insertedId) {
             return {
               statusCode: 200,
               headers: {
