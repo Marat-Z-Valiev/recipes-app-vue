@@ -16,8 +16,8 @@ const handler = async (event) => {
       // Check if the request is for getting a recipe by ID
       if (event.queryStringParameters && event.queryStringParameters.id) {
         const recipeId = event.queryStringParameters.id;
-
-        const recipe = await collection.findOne({ _id: ObjectId(recipeId) });
+        const objectId = new ObjectId(recipeId);
+        const recipe = await collection.findOne({ _id: objectId });
 
         if (recipe) {
           return {
@@ -40,8 +40,8 @@ const handler = async (event) => {
       // Check if the request is for deleting a recipe by ID
       if (event.queryStringParameters && event.queryStringParameters.id) {
         const recipeId = event.queryStringParameters.id;
-
-        const result = await collection.deleteOne({ _id: ObjectId(recipeId) });
+        const objectId = new ObjectId(recipeId);
+        const result = await collection.deleteOne({ _id: objectId });
 
         if (result.deletedCount === 1) {
           return {
@@ -69,9 +69,9 @@ const handler = async (event) => {
       ) {
         const recipeId = event.queryStringParameters.id;
         const updatedRecipe = JSON.parse(event.body);
-
+        const objectId = new ObjectId(recipeId);
         const result = await collection.updateOne(
-          { _id: ObjectId(recipeId) },
+          { _id: objectId },
           { $set: updatedRecipe }
         );
 
