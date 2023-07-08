@@ -85,6 +85,9 @@ export default {
             this.$router.push("/recipes");
           }, 2000);
         })
+        .catch((error) => {
+          console.error(error);
+        })
         .finally(() => {
           setTimeout(() => {
             this.isLoading = false;
