@@ -45,7 +45,9 @@ export default {
     fetchRecipe() {
       (this.isLoading = true),
         axios
-          .get(`http://localhost:3000/recipes/${this.id}`)
+          .get(
+            `https://recipes-vue-app-mv.netlify.app/.netlify/functions/recipes?id=${this.id}`
+          )
           .then(({ data }) => {
             this.recipe = data;
             this.title = this.recipe.title;

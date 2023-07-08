@@ -93,7 +93,7 @@ export default {
       () => this.$route.params,
       () => {
         console.log("path ", this.$route.path);
-        if (this.$route.path === "/recipes" || this.$route.path === "/") {
+        if (this.$route.path === "/recipes") {
           this.fetchRecipes();
           this.listOfRecipes = [...this.initialRecipes];
         }
@@ -106,7 +106,7 @@ export default {
       this.isLoading = true;
       await axios
         .get(
-          "https://recipes-vue-app-mv.netlify.app/.netlify/functions/get_recipes"
+          "https://recipes-vue-app-mv.netlify.app/.netlify/functions/recipes"
         )
         .then(({ data }) => {
           this.listOfRecipes = data;
@@ -118,7 +118,9 @@ export default {
     },
     deleteRecipe(id: string) {
       axios
-        .delete(`/recipes/${id}`)
+        .delete(
+          `https://recipes-vue-app-mv.netlify.app/.netlify/functions/recipes?id=${id}`
+        )
         .then(() => {
           this.fetchRecipes();
         })

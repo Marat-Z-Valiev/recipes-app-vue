@@ -71,12 +71,15 @@ export default {
     createRecipe() {
       this.isLoading = true;
       axios
-        .post("http://localhost:3000/recipes", {
-          title: this.title,
-          description: this.description,
-          ingredients: this.ingredients,
-          instructions: this.instructions,
-        })
+        .post(
+          "https://recipes-vue-app-mv.netlify.app/.netlify/functions/recipes",
+          {
+            title: this.title,
+            description: this.description,
+            ingredients: this.ingredients,
+            instructions: this.instructions,
+          }
+        )
         .then(() => {
           setTimeout(() => {
             this.$router.push("/recipes");
