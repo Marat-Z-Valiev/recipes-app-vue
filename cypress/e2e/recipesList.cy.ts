@@ -1,6 +1,6 @@
 describe("Recipes list", () => {
   it("creates new recipe by filling up form", () => {
-    cy.visit("http://localhost:8888");
+    cy.visit("https://recipes-vue-app-mv.netlify.app");
     cy.contains("h1", "List of recipes");
     cy.contains("button", "Add new recipe").click();
     cy.get("#title-field").type("cypress recipe title");
