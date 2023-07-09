@@ -18,21 +18,31 @@
     <v-form v-model="valid">
       <v-container>
         <v-text-field
+          id="title-field"
           v-model="title"
           :rules="titleRule"
           label="Recipe Title"
           required
         />
         <v-textarea
+          id="description-field"
           v-model="description"
           :rules="descriptionRule"
           label="Description"
           required
         />
         <div v-for="index in ingredientFields" :key="index">
-          <v-text-field v-model="ingredients[index - 1]" label="Ingredient" />
+          <v-text-field
+            :id="String(index)"
+            v-model="ingredients[index - 1]"
+            label="Ingredient"
+          />
         </div>
-        <v-textarea v-model="instructions" label="Instructions" />
+        <v-textarea
+          id="instructions-field"
+          v-model="instructions"
+          label="Instructions"
+        />
         <div class="button-container">
           <v-btn @click="addIngredientField"> Add ingredient </v-btn>
           <v-btn @click="removeIngredientField"> Remove ingredient </v-btn>
