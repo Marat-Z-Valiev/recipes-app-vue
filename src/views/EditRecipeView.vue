@@ -110,6 +110,8 @@ export default {
           {
             title: this.title,
             description: this.description,
+            ingredients: this.ingredients,
+            instructions: this.instructions,
           }
         )
         .then(({ data }) => {
