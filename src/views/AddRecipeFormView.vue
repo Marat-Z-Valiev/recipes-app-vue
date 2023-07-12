@@ -86,7 +86,7 @@ export default {
           {
             title: this.title,
             description: this.description,
-            ingredients: this.ingredients,
+            ingredients: this.ingredients.filter((instruction) => instruction),
             instructions: this.instructions,
           }
         )
