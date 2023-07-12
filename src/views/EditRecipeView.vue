@@ -38,7 +38,11 @@
         <div class="button-container">
           <v-btn @click="addIngredientField"> Add ingredient </v-btn>
           <v-btn @click="removeIngredientField"> Remove ingredient </v-btn>
-          <v-btn @click="updateRecipe" :loading="isLoading">
+          <v-btn
+            @click="updateRecipe"
+            :loading="isLoading"
+            :disabled="isLoading"
+          >
             Save
             <template v-slot:loader>
               <v-progress-circular color="blue-lighten-3" indeterminate />
@@ -104,23 +108,27 @@ export default {
           });
     },
     updateRecipe() {
-      axios
-        .put(
-          `https://recipes-vue-app-mv.netlify.app/.netlify/functions/recipes?id=${this.id}`,
-          {
-            title: this.title,
-            description: this.description,
-            ingredients: this.ingredients.filter((instruction) => instruction),
-            instructions: this.instructions,
-          }
-        )
-        .then(({ data }) => {
-          this.recipe = data;
-          setTimeout(() => {
-            this.$router.push("/recipes");
-          }, 2000);
-        })
-        .catch((error) => console.error("An error occurred:", error));
+      (this.isLoading = true),
+        axios
+          .put(
+            `https://recipes-vue-app-mv.netlify.app/.netlify/functions/recipes?id=${this.id}`,
+            {
+              title: this.title,
+              description: this.description,
+              ingredients: this.ingredients.filter(
+                (instruction) => instruction
+              ),
+              instructions: this.instructions,
+            }
+          )
+          .then(({ data }) => {
+            this.recipe = data;
+            (this.isLoading = false),
+              setTimeout(() => {
+                this.$router.push("/recipes");
+              }, 2000);
+          })
+          .catch((error) => console.error("An error occurred:", error));
     },
     addIngredientField() {
       this.ingredientFields++;
