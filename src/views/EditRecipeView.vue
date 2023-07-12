@@ -22,20 +22,29 @@
           :defaultValue="recipe.description"
           required
         />
-        <v-btn
-          :disabled="
-            title === '' ||
-            description === '' ||
-            (title === recipe.title && description === recipe.description)
-          "
-          @click="updateRecipe"
-          :loading="isLoading"
-        >
-          Save
-          <template v-slot:loader>
-            <v-progress-circular color="blue-lighten-3" indeterminate />
-          </template>
-        </v-btn>
+        <div v-for="index in ingredientFields" :key="index">
+          <v-text-field
+            :id="String(index)"
+            v-model="recipe.ingredients[index - 1]"
+            label="Ingredient"
+            :defaultValue="recipe.ingredients[index]"
+          />
+        </div>
+        <v-textarea
+          id="instructions-field"
+          v-model="recipe.instructions"
+          label="Instructions"
+        />
+        <div class="button-container">
+          <v-btn @click="addIngredientField"> Add ingredient </v-btn>
+          <v-btn @click="removeIngredientField"> Remove ingredient </v-btn>
+          <v-btn @click="updateRecipe" :loading="isLoading">
+            Save
+            <template v-slot:loader>
+              <v-progress-circular color="blue-lighten-3" indeterminate />
+            </template>
+          </v-btn>
+        </div>
       </v-container>
     </v-form>
   </div>
@@ -49,6 +58,10 @@ export default {
     return {
       valid: false,
       recipe: {} as Recipe,
+      ingredient: "",
+      ingredientFields: 0,
+      ingredients: [] as string[],
+      instructions: "",
       id: this.$route.params.id as string,
       title: "",
       titleRule: [
@@ -81,6 +94,9 @@ export default {
             this.recipe = data;
             this.title = this.recipe.title;
             this.description = this.recipe.description;
+            this.ingredientFields = this.recipe.ingredients.length;
+            this.ingredients = this.recipe.ingredients;
+            this.instructions = this.recipe.instructions;
             this.isLoading = false;
           })
           .catch((error) => {
@@ -104,6 +120,14 @@ export default {
         })
         .catch((error) => console.error("An error occurred:", error));
     },
+    addIngredientField() {
+      this.ingredientFields++;
+      this.ingredients.push(this.ingredient);
+    },
+    removeIngredientField() {
+      this.ingredientFields--;
+      this.ingredients.pop();
+    },
   },
 };
 </script>
@@ -117,6 +141,12 @@ export default {
   .back-to-list-button {
     display: flex;
     justify-content: center;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
   }
 }
 </style>
